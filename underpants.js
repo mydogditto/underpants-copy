@@ -80,7 +80,7 @@ _.first = function(array, num){
     return array
    } else{
     // else return a slliced verstion of the array until number 
-    return array.sllice(0, number)
+    return array.slice(0, num)
    }
     
 }
@@ -128,10 +128,16 @@ _.last = function(array, number){
 _.indexOf = function(array, value){
 
 // loop through the array
-// return the index where array[i] === value// only the return the first instance of any value
-
-
+for(let i = 0; i < array.length; i++){
+    // if array[i] is = value 
+   if (array[i] === value){
+    // return the index of the value // only the return the first instance of any value
+    return i}
+}
+// otherwise if value is not an array
 // return -1
+return -1
+
 }
 
 
@@ -151,10 +157,15 @@ _.indexOf = function(array, value){
 */
 _.contains  = function(array, value){
 // loop through the array
-// if array[i] === value 
-// return true 
-
+for(let i = 0; i < array.length; i++){
+    // if array[i] === value 
+    if(array[i] === value){
+        // return true 
+        return ture
+    }
+}
 //  default value return false 
+return false
 }
 
 /** _.each 
@@ -194,7 +205,12 @@ _.each(["a", "b"], function(item){console.log(item)})
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
 _.unique = function(array){
-    // 
+    // create output array
+    // loop through the array 
+    // invoke indexOf() on each value (indexOf will only return the first instence)
+    // return output array
+
+
 }
 
 /** _.filter
