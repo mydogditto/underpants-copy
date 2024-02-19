@@ -60,7 +60,30 @@ var _ = {};
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
-
+// array = array of strings 
+// num = number of string 
+_.first = function(array, num){
+    // if array is not an array  return empty array
+    if(Array.isArray === false){
+        return []
+    }
+    // if num is not a num or undefined return array[0]
+    if(num === undefined || num === NaN ){
+        return array[0]
+    }
+    // if number is negative return an empty array
+   if(num < 0){
+    return []
+    // if number is > that the length of the array
+   } if(num > array.length){
+    // return the full array 
+    return array
+   } else{
+    // else return a slliced verstion of the array until number 
+    return array.sllice(0, number)
+   }
+    
+}
 
 /** _.last
 * Arguments:
@@ -79,7 +102,13 @@ var _ = {};
 *   _.last(["a", "b", "c"], 1) -> "c"
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
-
+_.last = function(array, number){
+    // if array is not array return empty array
+    //if number is NaN or undefined  return array.length - 1
+    // if number is negative return an empty array
+    // if number is > array.length return the whole array
+    // else return last element in the array using slice method
+}
 
 /** _.indexOf
 * Arguments:
@@ -96,6 +125,14 @@ var _ = {};
 *   _.indexOf(["a","b","c"], "c") -> 2
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
+_.indexOf = function(array, value){
+
+// loop through the array
+// return the index where array[i] === value// only the return the first instance of any value
+
+
+// return -1
+}
 
 
 /** _.contains
@@ -112,9 +149,15 @@ var _ = {};
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
+_.contains  = function(array, value){
+// loop through the array
+// if array[i] === value 
+// return true 
 
+//  default value return false 
+}
 
-/** _.each
+/** _.each 
 * Arguments:
 *   1) A collection
 *   2) A function
@@ -128,9 +171,19 @@ var _ = {};
 * Examples:
 *   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
 *      -> should log "a" "b" "c" to the console
-*/
+_.each({a: 1, b:2}, function(e, i, a)){ console.log(e)};
+*/ 
+_.each = function (collection, func){
+// determine if collection is an array
+if(Array.isArray(collection)){
+// loop through collection
+//invoke the callback function with element, index, collection
+}// else it is an object
+// loop through the object
+// call calback function collection[key], key, collection
 
-
+}
+_.each(["a", "b"], function(item){console.log(item)})
 /** _.unique
 * Arguments:
 *   1) An array
@@ -140,7 +193,9 @@ var _ = {};
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
-
+_.unique = function(array){
+    // 
+}
 
 /** _.filter
 * Arguments:
