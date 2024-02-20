@@ -133,6 +133,7 @@ _.last = function(array, number){
         return array
         // else return last element in the array using slice method
     } else {
+
         return array.slice(1, array[number.lengthn - 1])
     }
     
@@ -163,7 +164,8 @@ for(let i = 0; i < array.length; i++){
     // if array[i] is = value 
    if (array[i] === value){
     // return the index of the value // only the return the first instance of any value
-    return i}
+    return i
+}
 }
 // otherwise if value is not an array
 // return -1
@@ -231,16 +233,10 @@ for(let key in collection )
     func(collection[key], key, collection)
 }
 }
-
-    
-
-
-
-
 }
 
 
-_.each(["a", "b"], function(item){console.log(item)})
+
 /** _.unique
 * Arguments:
 *   1) An array
@@ -256,16 +252,14 @@ _.unique = function(array){
     // loop through the array 
     for(let i = 0; i < array.length; i++){
         // if array[i] with indexOf invoked on it = -1 will filter out the duplicits
-       if(output.indexOf(array[i])=== -1){
+       if(output.indexOf(array[i]) === -1){
         // push just the first ocurences of each number
         output.push(array[i])
        }
         
     }
-    return output
-    
     // return output array
-
+    return output
 
 }
 
@@ -287,8 +281,11 @@ _.unique = function(array){
 _.filter = function(array, func){
     // create an output array
     let output = []
+    // loop through the array
     for(let i = 0; i < array.length; i++){
-       if(func(array[i], i, array)){
+        // if the result of the callback is truthy 
+       if(func(array[i])){
+        // push array[i]
             output.push(array[i])
         }
     }
@@ -314,7 +311,7 @@ _.reject = function(array, func){
     // loop through the array
     for(let i = 0; i < array.length; i++){
     // set up a func calling array[i], i, array = to false 
-    if(func(array[i], i, array) === false){
+    if(!func(array[i], i, array)){
         // push array[i] to output 
         output.push(array[i])
     }
@@ -391,8 +388,8 @@ _.map = function(collection, func){
    // loop through the array 
     for(let i = 0; i < collection.length; i++){
 // set callback to a variable 
-// callback should be the invokation of collection[i], i, collection
-        let result = func(collection[i], i, collection)
+// callback should be the invokation of collection[i], i, collection: collection[i] is all that is required
+        let result = func(collection[i])
         output.push(result)
    
    // push the result of the invokation to ouput 
@@ -403,7 +400,7 @@ _.map = function(collection, func){
     for(let key in collection){
      // set callback function to a variable 
      // callback function should be collection[key], key, collection
-     let result = func(collection[key], key, collection)
+     let result = func(collection[key])
       // push variable to output  
      output.push(result)
    
@@ -470,7 +467,7 @@ if(!collection[i]){
 }
 
     }
-} else
+} else{}
 
 
 }
@@ -522,7 +519,11 @@ if(!collection[i]){
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
+_.some = function(collection, func){
 
+
+
+}
 
 /** _.reduce
 * Arguments:
@@ -542,7 +543,29 @@ if(!collection[i]){
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
-
+_.reduce = function(array, func, seed){
+// inishalize a accumulation variable 
+let accum;
+// if seed is undefined
+if(seed === undefined){
+    // set output value to array[0]
+    accum = array[0]
+    // loop through the array starting from one b/c seed is the first iteration
+    for(let i = 1; i < array.length; i++){
+        // accum variable = to calling the function acc, array[i], i, 
+        accum = func(accum,array[i], i)
+    }
+    // otherwise acc = seed
+} else{ accum = seed
+// loop through the array
+for(let i = 0; i < array.length; i++){
+// set acc to the result of the function call on acc, array[i], i, 
+accum = func(accum, array[i], i)
+}
+}
+// return acc 
+return accum
+}
 
 /** _.extend
 * Arguments:
@@ -558,6 +581,17 @@ if(!collection[i]){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+// use spred opporater to indicate any number of objects can be passed in
+// we can assume objects are grouped in a collection
+_.extend = function(target, ...objects){
+// loop through the objects collection created by the spread opporater 
+    for (let key in objects){
+        // use the Object.assign method to destructivly add the properties to target
+        Object.assign(target, objects[key]);
+    }
+    // return target 
+    return target
+} 
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
