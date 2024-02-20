@@ -383,7 +383,37 @@ _.partition = function(array, func){
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
+_.map = function(collection, func){
+   // setup output array
+   let output = []
+   // see if collection is an array
+   if(Array.isArray(collection)){
+   // loop through the array 
+    for(let i = 0; i < collection.length; i++){
+// set callback to a variable 
+// callback should be the invokation of collection[i], i, collection
+        let result = func(collection[i], i, collection)
+        output.push(result)
+   
+   // push the result of the invokation to ouput 
+    }
+    // else the collection must be a object
+   } else {
+// loop through collection
+    for(let key in collection){
+     // set callback function to a variable 
+     // callback function should be collection[key], key, collection
+     let result = func(collection[key], key, collection)
+      // push variable to output  
+     output.push(result)
+   
+    
 
+    }
+   }
+   // return output
+   return output
+}
 
 /** _.pluck
 * Arguments:
@@ -397,6 +427,13 @@ _.partition = function(array, func){
 */
 _.pluck = function(array, property){
 
+// loop through the array of objects using map() set to a variable 
+let result = _.map(array, function(object){
+// the function input should be a single object from the array of objects should return for map should be object[key]
+   return  object[property]
+})
+// return the variable that was set to the result of the function
+return result
 }
 
 /** _.every
@@ -419,6 +456,50 @@ _.pluck = function(array, property){
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+_.every = function(collection, func){
+// if func is undefined
+if(func === undefined){
+//if array is array
+if(Array.isArray(collection)){
+    // loop through the array
+    for(let i = 0; i < collection.length; i++){
+// if the collection[i] as a whole is falsy 
+if(!collection[i]){
+    // return false
+    return false
+}
+
+    }
+} else
+
+
+}
+
+// else the collection is an object
+// loop through the object 
+// if collection[key] is falsey 
+// return false
+// repeat steps for the function
+// else if collection is an array
+// loop through the array
+// if invoking the calback is falsey !func(collection[i])
+// return false
+// else collection is an object
+// loop through the object called collection 
+// if callback !func(collection[key]) is false 
+// return false
+
+// defalt value if undefined of return ture 
+
+
+
+
+
+
+
+// return true
+
+}
 
 
 /** _.some
