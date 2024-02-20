@@ -20,7 +20,9 @@ var _ = {};
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
-
+_.identity = function(value){
+    return value
+}
 
 /** _.typeOf
 * Arguments:
@@ -41,8 +43,24 @@ var _ = {};
 * _.typeOf("javascript") -> "string"
 * _.typeOf([1,2,3]) -> "array"
 */
-
-
+_.typeOf = function(value){
+if(typeof value === 'string'){
+    return 'string'
+  } else if (Array.isArray(value)){
+    return 'array'
+  } else if (typeof value === 'undefined'){
+    return 'undefined'
+  } else if(typeof value === 'number'){
+    return 'number'
+  } else if (typeof value === 'boolean'){
+  return 'boolean'
+  } else if (value === null){
+    return 'null'
+  } else if (typeof value === "function" ){
+    return "function"
+  } else if (value === 'object'){
+  } return 'object'
+}
 /** _.first
 * Arguments:
 *   1) An array
@@ -62,27 +80,25 @@ var _ = {};
 */
 // array = array of strings 
 // num = number of string 
-_.first = function(array, num){
-    // if array is not an array  return empty array
-    if(Array.isArray === false){
-        return []
-    }
+_.first = function(array, number){
+ // if array is not an array  return empty array
+if (Array.isArray(array)=== false){
+    return [];
     // if num is not a num or undefined return array[0]
-    if(num === undefined || num === NaN ){
-        return array[0]
-    }
-    // if number is negative return an empty array
-   if(num < 0){
-    return []
-    // if number is > that the length of the array
-   } if(num > array.length){
-    // return the full array 
-    return array
-   } else{
+} if(number === undefined || number === NaN){
+return array[0];
+// if number is negative return an empty array
+} if (number < 0){
+    return [];
+     // if number is > that the length of the array
+}if (number > array.length){
+     // return the full array 
+    return array;
+}else {
     // else return a slliced verstion of the array until number 
-    return array.slice(0, num)
-   }
-    
+    return array.slice(0, number)
+}
+
 }
 
 /** _.last
@@ -104,10 +120,25 @@ _.first = function(array, num){
 */
 _.last = function(array, number){
     // if array is not array return empty array
-    //if number is NaN or undefined  return array.length - 1
-    // if number is negative return an empty array
-    // if number is > array.length return the whole array
-    // else return last element in the array using slice method
+    if(Array.isArray(array) === false){
+        return []
+        //if number is NaN or undefined  return array.length - 1
+    } if(number === NaN || number === undefined){
+        return array[array.length - 1]
+        // if number is negative return an empty array
+    } if(number < 0){
+        return []
+        // if number is > array.length return the whole array
+    } if(number > array.length){
+        return array
+        // else return last element in the array using slice method
+    } else {
+        return array.slice(1, array[number.lengthn - 1])
+    }
+    
+    
+    
+    
 }
 
 /** _.indexOf
@@ -161,7 +192,7 @@ for(let i = 0; i < array.length; i++){
     // if array[i] === value 
     if(array[i] === value){
         // return true 
-        return ture
+        return true
     }
 }
 //  default value return false 
@@ -186,14 +217,29 @@ _.each({a: 1, b:2}, function(e, i, a)){ console.log(e)};
 */ 
 _.each = function (collection, func){
 // determine if collection is an array
-if(Array.isArray(collection)){
+if(Array.isArray(collection)=== false){
 // loop through collection
-//invoke the callback function with element, index, collection
-}// else it is an object
+for(let i = 0; i < collection.length; i++){
+    //invoke the callback function with element, index, collection
+    func(collection[i], i, collection)
+}
+// else it is an object
+}if(typeof collection === "object"){
 // loop through the object
-// call calback function collection[key], key, collection
+for(let key in collection )
+{// call calback function collection[key], key, collection
+    func(collection[key], key, collection)
+}
+}
+
+    
+
+
+
 
 }
+
+
 _.each(["a", "b"], function(item){console.log(item)})
 /** _.unique
 * Arguments:
@@ -206,8 +252,18 @@ _.each(["a", "b"], function(item){console.log(item)})
 */
 _.unique = function(array){
     // create output array
+    let output = []
     // loop through the array 
-    // invoke indexOf() on each value (indexOf will only return the first instence)
+    for(let i = 0; i < array.length; i++){
+        // if array[i] with indexOf invoked on it = -1 will filter out the duplicits
+       if(output.indexOf(array[i])=== -1){
+        // push just the first ocurences of each number
+        output.push(array[i])
+       }
+        
+    }
+    return output
+    
     // return output array
 
 
@@ -228,6 +284,16 @@ _.unique = function(array){
 * Extra Credit:
 *   use _.each in your implementation
 */
+_.filter = function(array, func){
+    // create an output array
+    let output = []
+    for(let i = 0; i < array.length; i++){
+       if(func(array[i], i, array)){
+            output.push(array[i])
+        }
+    }
+     return output
+} 
 
 
 /** _.reject
@@ -242,8 +308,22 @@ _.unique = function(array){
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
-
-
+_.reject = function(array, func){
+    // setup an output array
+    let output = []
+    // loop through the array
+    for(let i = 0; i < array.length; i++){
+    // set up a func calling array[i], i, array = to false 
+    if(func(array[i], i, array) === false){
+        // push array[i] to output 
+        output.push(array[i])
+    }
+    }
+     // return output
+    return output
+    
+   
+}
 /** _.partition
 * Arguments:
 *   1) An array
@@ -262,7 +342,31 @@ _.unique = function(array){
 *   }); -> [[2,4],[1,3,5]]
 }
 */
+_.partition = function(array, func){
+    // set up array truthy
+    let truthy = []
+    // set up array falsey
+    let falsey = []
+    // setup output array
+    let output = []
+    // loop through the array
+    for(let i = 0; i < array.length; i++){
+        // if func invocation  array[i], i, array
+        if(func(array[i], i, array)){
+              // push to truthy
+            truthy.push(array[i])
+             // else push to false
+        } else{ falsey.push(array[i])}
+    }
+    
+    // use push to add truthy & to output 
+    output.push(truthy, falsey)
+    // return output 
+    return output
+    
 
+
+}
 
 /** _.map
 * Arguments:
@@ -291,7 +395,9 @@ _.unique = function(array){
 * Examples:
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
+_.pluck = function(array, property){
 
+}
 
 /** _.every
 * Arguments:
