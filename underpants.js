@@ -284,13 +284,14 @@ _.filter = function(array, func){
     // loop through the array
     for(let i = 0; i < array.length; i++){
         // if the result of the callback is truthy 
-       if(func(array[i])){
+       if(func(array[i], i, array)){
         // push array[i]
             output.push(array[i])
         }
     }
      return output
 } 
+
 
 
 /** _.reject
@@ -389,7 +390,7 @@ _.map = function(collection, func){
     for(let i = 0; i < collection.length; i++){
 // set callback to a variable 
 // callback should be the invokation of collection[i], i, collection: collection[i] is all that is required
-        let result = func(collection[i])
+        let result = func(collection[i], i, collection)
         output.push(result)
    
    // push the result of the invokation to ouput 
@@ -400,7 +401,7 @@ _.map = function(collection, func){
     for(let key in collection){
      // set callback function to a variable 
      // callback function should be collection[key], key, collection
-     let result = func(collection[key])
+     let result = func(collection[key], key, collection)
       // push variable to output  
      output.push(result)
    
@@ -467,35 +468,43 @@ if(!collection[i]){
 }
 
     }
-} else{}
-
-
+    // else the collection is an object
+} else{
+    // loop through the object 
+    for(key in collection){
+// if collection[key] is falsey 
+if(!collection[key]){
+// return false
+return false
+}
+    }
 }
 
-// else the collection is an object
-// loop through the object 
-// if collection[key] is falsey 
-// return false
-// repeat steps for the function
-// else if collection is an array
-// loop through the array
-// if invoking the calback is falsey !func(collection[i])
-// return false
-// else collection is an object
-// loop through the object called collection 
-// if callback !func(collection[key]) is false 
-// return false
 
-// defalt value if undefined of return ture 
-
-
-
-
-
-
-
-// return true
-
+}// if function is defined // else if collection is an array
+else {
+    if(Array.isArray(collection)){
+      // loop through the array  
+      for(let i = 0; i < collection.length; i++){
+       // if invoking the calback is falsey !func(collection[i]) 
+       if(!func(collection[i], i, collection)){
+        return false
+       }
+      }
+      // else collection is an object
+    } else{
+        // loop through the object called collection 
+        for(let key in collection){
+        // if callback !func(collection[key]) is false 
+        if(!func(collection[key], key, collection)){
+            // return false
+            return false
+        }
+        }
+    }
+   
+} 
+return true
 }
 
 
@@ -521,9 +530,60 @@ if(!collection[i]){
 */
 _.some = function(collection, func){
 
+// if func is undefined
+if(func === undefined){
+    //if array is array
+    if(Array.isArray(collection)){
+        // loop through the array
+        for(let i = 0; i < collection.length; i++){
+    // if the collection[i] as a whole is truthy 
+    if(collection[i]){
+        // return true
+        return true
+    }
+    
+        }
+        // else the collection is an object
+    } else{
+        // loop through the object 
+        for(key in collection){
+    // if collection[key] is truthy 
+    if(collection[key]){
+    // return true
+    return true
+    }
+        }
+    }
+    
+    
+    }// if function is defined // else if collection is an array
+    else {
+        if(Array.isArray(collection)){
+          // loop through the array  
+          for(let i = 0; i < collection.length; i++){
+           // if invoking the calback is truthy func(collection[i]) 
+           if(func(collection[i], i, collection)){
+            return true
+           }
+          }
+          // else collection is an object
+        } else{
+            // loop through the object called collection 
+            for(let key in collection){
+            // if callback !func(collection[key]) is true 
+            if(func(collection[key], key, collection)){
+                // return true
+                return true
+            }
+            }
+        }
+       
+    } 
+    // return true
+    return false
+    }
 
 
-}
 
 /** _.reduce
 * Arguments:
