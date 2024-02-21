@@ -643,15 +643,14 @@ return accum
 */
 // use spred opporater to indicate any number of objects can be passed in
 // we can assume objects are grouped in a collection
-_.extend = function(target, ...objects){
+_.extend = function(obj1, obj2, ...obj){
 // loop through the objects collection created by the spread opporater 
-    for (let key in objects){
+   
         // use the Object.assign method to destructivly add the properties to target
-        Object.assign(target, objects[key]);
-    }
+       return  Object.assign(obj1, obj2, ...obj);
+       }
     // return target 
-    return target
-} 
+   
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
