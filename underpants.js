@@ -219,18 +219,21 @@ _.each({a: 1, b:2}, function(e, i, a)){ console.log(e)};
 */ 
 _.each = function (collection, func){
 // determine if collection is an array
-if(Array.isArray(collection)=== false){
+if(Array.isArray(collection)){
 // loop through collection
 for(let i = 0; i < collection.length; i++){
     //invoke the callback function with element, index, collection
     func(collection[i], i, collection)
 }
+}
 // else it is an object
-}if(typeof collection === "object"){
+else {
+if(typeof collection === "object"){
 // loop through the object
 for(let key in collection )
 {// call calback function collection[key], key, collection
     func(collection[key], key, collection)
+}
 }
 }
 }
@@ -390,8 +393,8 @@ _.map = function(collection, func){
     for(let i = 0; i < collection.length; i++){
 // set callback to a variable 
 // callback should be the invokation of collection[i], i, collection: collection[i] is all that is required
-        let result = func(collection[i], i, collection)
-        output.push(result)
+        output.push(func(collection[i], i, collection))
+        
    
    // push the result of the invokation to ouput 
     }
@@ -404,9 +407,6 @@ _.map = function(collection, func){
      let result = func(collection[key], key, collection)
       // push variable to output  
      output.push(result)
-   
-    
-
     }
    }
    // return output
